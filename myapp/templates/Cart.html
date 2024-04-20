@@ -1,0 +1,57 @@
+{% extends "base.html" %} {% block title %} home page {% endblock %}
+{% block content %}
+{% load static %}
+<!-- body -->
+<div class="w-full bg-slate-100 py-6 pt-[12rem]">
+    <nav class="py-4 px-6 flex items-center">
+        <a href="/" class="px-4 py-2">Trang chủ</a>
+        <p class="px-1">/</p>
+        <a href="/cart" class="px-3 py-2">Giỏ hàng</a>
+    </nav>
+    <!-- cart -->
+    <div class="px-10 flex mb-6">
+        <div class="bg-white rounded-md p-4 ">
+            <h2 class="text-lg   border-b border-slate-300 py-2">GIỎ HÀNG CỦA BẠN</h2>
+            <p class="py-6">Bạn đang có 1 sản phẩm trong giỏ hàng</p>
+            <!-- product -->
+            <div class="border my-2 relative flex w-full border-slate-300 rounded-md p-4">
+                <img src="{%  static 'images/adidas/adidas_horizontal.jpg' %}" class="w-20 h-20 border border-slate-200 rounded-sm" alt="">
+                <div class="px-4"> 
+                    <p class="">Giày Thể Thao Thông Dụng Nam Biti's BSM000700</p>
+                    <nav class="flex items-center pt-3">
+                        <p class="text-red-500 px-2 font-semibold">427,000 <sup>₫</sup></p>
+                        <p class="text-black px-2 font-semibold ">Màu sắc: 
+                            <span class="px-1 text-slate-400 text-sm">Trắng</span></p>
+                        <p class="text-black px-2 font-semibold flex items-center">Kích thước 
+                            <span class="px-1 text-slate-400 text-sm">39</span>
+                        </p>
+                    </nav>
+                </div>
+                <!-- tăng giảm sản phẩm -->
+                <nav class="flex items-center w-[8rem] my-4">
+                    <button class="px-4  text-base border-r-0 py-1 font-bold flex items-center justify-center rounded-sm border border-slate-300">-</button>
+                    <input min="1" max="9999" type='number ' value="1" class="w-full py-1 pl-4 border border-slate-300 outline-none" >
+                    <button class="px-4 text-base border-l-0 py-1 font-bold flex items-center justify-center rounded-sm border border-slate-300">+</button>
+                </nav>
+                <button class="text-xl absolute top-1 right-2.5">X</button>
+            </div>
+            
+        </div>
+        <div class="bg-white rounded-md p-4  ml-10">
+            <h2 class="text-xl  border-b py-1 border-slate-300 font-semibold">THÔNG TIN ĐƠN HÀNG</h2>
+            <nav class="text-lg font-semibold flex items-cemter justify-between py-4">
+                <p class="flex items-center justify-center">
+                    Tổng số tiền: 
+                </p>
+                <p class="text-red-500 ">427,000  <sup>₫</sup></p>
+            </nav>
+            <div class="">
+                <li class="">Phí vận chuyển sẽ được tính ở trang thanh toán.</li>
+                <li class="">Bạn cũng có thể nhập mã giảm giá ở trang thanh toán.</li>
+            </div>
+            <a href="/payment" class="mt-4 w-full flex items-center justify-center py-2 text-white bg-red-500 rounded-sm">Thanh toán</a>
+
+        </div>
+    </div>
+</div>
+{%endblock%}

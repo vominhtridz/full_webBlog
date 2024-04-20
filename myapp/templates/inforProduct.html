@@ -1,0 +1,60 @@
+{% extends "base.html" %} {% block title %} home page {% endblock %}
+{% block content %}
+    {% load static %}
+<!-- body -->
+<div class="w-full mt-[30rem]">
+    <nav class="py-4 px-6 flex items-center">
+        <a href="/" class="px-4 py-2">Trang chủ</a>
+        <p class="px-1">/</p>
+        <a href="/" class="px-3 py-2">Tất cả sản phẩm</a>
+        <p class="px-1">/</p>
+
+        <button class="px-3 py-2">Giày cbolary</button>
+    </nav>
+    <div class="bg-slate-50 flex  rounded-sm p-4 ml-10 my-6">
+        <div class="h-full w-1/2">  
+            <img src="{% static 'images/adidas/adidas_horizontal1.jpg' %}" class="rounded-sm" alt="">
+        </div>
+        <div class="w-1/2 h-full">
+                <h2 class="text-xl font-semibold pb-2">Giày Thể Thao Thông Dụng Nam Biti's BSM000700</h2>
+                <p class="text-xl text-red-500 py-2 px-4">427,000  <sup>₫</sup></p>
+            <div class="text-base">
+                <nav class="flex items-center py-2">
+                    <p class="pr-1">Tình trạng:</p>
+                    <p class="text-blue-500">còn hàng</p>
+                </nav>
+                <div class="flex ">
+                    <div class="px-1 rounded-sm cursor-pointer text-center font-semibold text-sm">
+                        <img src="{% static 'images/adidas/adidas_horizontal.jpg' %}" class="w-10 h-12" alt="">
+                        <p class="">Đen</p>
+                    </div>
+                    <div class="px-1 rounded-sm cursor-pointer text-center font-semibold text-sm">
+                        <img src="{% static 'images/adidas/adidas_horizontal1.jpg' %}" class="w-10 h-12" alt="">
+                        <p class="">Trắng</p>
+                    </div>
+                    <div class="px-1 rounded-sm cursor-pointer text-center font-semibold text-sm">
+                        <img src="{% static 'images/adidas/adidas_horizontal2.jpg' %}" class="w-10 h-12" alt="">
+                        <p class="">Xanh</p>
+                    </div>
+                </div>
+            </div>
+            <nav class="flex items-center w-[8rem] my-4">
+                <button class="px-4  text-base border-r-0 py-1 font-bold flex items-center justify-center rounded-sm border border-slate-300">-</button>
+                <input min="1" max="9999" type='number ' value="1" class="w-full py-1 pl-4 border border-slate-300 outline-none" >
+                <button class="px-4 text-base border-l-0 py-1 font-bold flex items-center justify-center rounded-sm border border-slate-300">+</button>
+            </nav>
+            <!-- Đặt mua -->
+            <div class="flex items-center">
+                <a href="/" class="bg-white rounded-sm px-4 py-2 hover:bg-slate-100 mx-2 border border-slate-300">Huỷ</a>
+                <a href="/cart" class="bg-red-500 text-white px-4 py-2 rounded-sm mx-2 ">Đặt mua</a>
+                
+            </div>
+        </div>
+    </div>
+    <!-- decribe product -->
+    <div class="">
+        <h2 class="text-lg font-bold py-2 border-b border-slate-400">Mô tả sản phẩm</h2>
+        <p class="py-6">Giày thể thao Biti’s nam đã không còn là cái tên xa lạ với người tiêu dùng. Không chỉ là hình ảnh trẻ trung, năng động và gần gũi giới trẻ, giày thể thao Biti’s còn mang lại sự thoải mái và thời trang. Giày Thể Thao Thông Dụng Nam Biti’s BSM000700 được rất nhiều bạn trẻ lựa chọn bởi kiểu dáng đơn giản nhưng không kém phần tinh tế và sang trọng. Để biết thêm chi tiết về sản phẩm, hãy tham khảo bài viết dưới đây.</p>
+    </div>
+</div>
+{%endblock%}
