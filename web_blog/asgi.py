@@ -1,5 +1,5 @@
 """
-ASGI config for web_banhang project.
+ASGI config forproject.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
@@ -11,6 +11,6 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'web_banhang.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'web_blog.settings')
 
 application = get_asgi_application()

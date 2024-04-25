@@ -15,56 +15,54 @@
     <!--logo  -->
     <div class='fixed top-0 right-0 z-10 left-0 px-10 shadow bg-white border-b border-slate-300'>
        <div class="w-full flex items-center   px-6">
-        <a href="/" class='w-[90px] block'>
-            <img src="{% static 'images/LogoShop.png' %}" alt="" class="w-full h-full">
+        <a href="/" class='w-[100px] block'>
+            <img src="{% static 'images/blogLogo.png' %}" alt="" class="w-full h-full">
         </a>
         <!-- search -->
         <div class="w-[45rem] mx-auto relative z-40">
-          <input type="text" class="rounded-sm px-3    text-sm py-2  border border-slate-300 w-full outline-none" placeholder="Tìm kiếm sản .">
-          <div class="absolute bg-white flex flex-col shadow-md top-full left-0 right-0 p-2 w-full">
+          <input type="text" class="rounded-sm px-3 search    text-sm py-2  border border-slate-300 w-full outline-none" placeholder="Tìm kiếm blog ...">
+          <div class="absolute hidden  search_item  bg-white flex flex-col shadow-md top-full left-0 right-0 p-2 w-full">
             <p class=" w-full py-1 px-2">tìm kiếm...</p>
-            <a href="/adidas" class=" w-full py-1 hover:bg-slate-50 px-2">Sản phẩm adidas</a>
-            <a href="/asics" class=" w-full py-1 hover:bg-slate-50 px-2">Sản phẩm asics </a>
-        
+            <a href="" class="search_display w-full py-1 px-2 block hover:bg-gray-100"></a>
           </div>
         </div>
-
-        <!-- options -->
-        <nav class="flex items-center justify-center ml-auto">
-          <a  href="/support" class="text-sm rounded-sm px-4 py-2  border-white border-b-2 hover:border-red-300 ">Hổ trợ</a>
-          {% if request.path == '/payment/' %}
-          <a  href="/payment"class="text-sm rounded-sm px-4  ">
-            <p class="border-b-2 border-red-300 hover:border-red-300 py-2">thanh toán</p>
-          </a>
-          {% else %}
-          <a  href="/payment"class="text-sm rounded-sm px-4   border-white ">
-            <p class="border-b-2 border-white  hover:border-red-300 py-2">thanh toán</p>
-          </a>
-          {% endif%}
-          {% if request.path == '/cart/' %}
-          <a  href="/cart"class="text-sm rounded-sm px-4   border-white  ">
-            <p class="border-b-2 hover:border-red-300 border-red-300 py-2">Giỏ hàng</p>
-          </a>
-          {% else %}
-          <a  href="/cart"class="text-sm rounded-sm px-4     ">
-            <p class="border-b-2 hover:border-red-300 border-white  py-2">Giỏ hàng</p>
-          </a>
-          {% endif%}
-
           <!-- loggin -->
+        {% if  user %}
+         <div class="relative mr-20">
+          <a href="/addpost" class="addPost  w-8 block cursor-pointer ">
+            <img src="{% static 'images/addPost.png' %}" class="w-full h-full" alt="">
+          </a>
+          <div class=" addBlog absolute right-0  rounded-sm bg-white shadow top-full">
+            <a href="/addpost" id="Addpost"  class="py-1.5 hover:bg-slate-100 whitespace-nowrap px-5 text-sm">+ Thêm blog </a>
+            <a href="/"  class="py-1.5 hover:bg-slate-100 whitespace-nowrap px-5 text-sm">blog của tôi </a>
+          </div>
+         </div>
+        {% endif %}
+        {% if  not user %}
+          {% if request.path == '/login/' %}
+            <a href="{% url 'register' %}" class="text-sm py-4 rounded-sm px-4">
+              <p class="border-b-2 border-red-300 hover:border-red-300 py-2"> Đăng kí</p>
+            </a>
+          
+            {% else %}
+            <a href="{% url 'register' %}" class="text-sm rounded-sm px-4">
+              
+              <p class="border-b-2 border-white hover:border-red-300 py-2"> Đăng kí</p>
+            </a>
+          {% endif%}
+        {% endif %}
 
         {% if user %}
             <p class="px-2 text-sm relative logged_in"> {{ user.username }}</p>
             {% if user.username %}
-            <a href="{% url 'logout' %}" class="absolute top-12 right-12 logged_in_item bg-white px-6 py-1.5 shadow whitespace-nowrap">Logout</a>
+            <a href="{% url 'logout' %}" class="absolute top-12 right-12 logged_in_item bg-white px-6 py-1.5 shadow whitespace-nowrap">Đăng xuất</a>
           {% endif %}
           
         {% else %}
-          {% if request.path == '/login/' %}
+          {% if request.path == '/register/' %}
             <a href="{% url 'login' %}" class="text-sm py-4 rounded-sm px-4">
               <p class="border-b-2 border-red-300 hover:border-red-300 py-2"> Đăng nhập</p>
             </a>
-          
             {% else %}
             <a href="{% url 'login' %}" class="text-sm rounded-sm px-4">
               
@@ -90,46 +88,44 @@
           {% endif %}
           
           <div class="relative cateProd cursor-pointer  border-b-2 hover:border-red-300 border-white">
-            Danh mục sản phẩm
-              <div class="absolute top-full childCateProd right-0 bg-white  py-2 rounded-sm shadow-lg ">
-                <a href="/nike" class="px-2 py-1 inline-block hover:bg-red-50 text-sm w-full">Nike</a>
-                <a href="/adidas" class="px-2 py-1 inline-block hover:bg-red-50 text-sm w-full ">Adidas</a>
-                <a href="/puma" class="px-2 py-1 inline-block hover:bg-red-50 text-sm w-full ">Puma</a>
-                <a href="/asics" class="px-2 py-1 inline-block hover:bg-red-50 text-sm w-full ">Asics</a>
-                <a href="/pelock" class="px-2 py-1 inline-block hover:bg-red-50 text-sm w-full ">Pelock</a>
+            Danh mục 
+              <div class="absolute top-full w-24 childCateProd right-0  bg-white  py-2 rounded-sm shadow-lg ">
+                <a href="/category/du lịch" class="px-2 py-1 inline-block whitespace-nowrap hover:bg-red-50 text-sm w-full">du lịch</a>
+                <a href="/category/thức ăn" class="px-2 py-1 inline-block whitespace-nowrap hover:bg-red-50 text-sm w-full ">thức ăn</a>
+                <a href="/category/công việc" class="px-2 py-1 inline-block whitespace-nowrap hover:bg-red-50 text-sm w-full ">công việc</a>
+                <a href="/category/giải trí" class="px-2 py-1 inline-block whitespace-nowrap hover:bg-red-50 text-sm w-full ">giải trí</a>
               </div>
           </div>
-          <a href="/nike" class="px-4 border-b-2 hover:border-red-300 border-white py-1">Giày nữ</a>
-          <a href="/pelock" class="px-4 border-b-2 hover:border-red-300 border-white py-1">Giày Nam</a>
+          <a href="/category/du lịch" class="px-4 border-b-2 hover:border-red-300 border-white py-1">Mới nhất </a>
+          <a href="/category/thức ăn" class="px-4 border-b-2 hover:border-red-300 border-white py-1">Cũ nhất</a>
           </div>
-          <!-- shopping cart -->
-          <a href="/cart" class="w-8 h-8 text-slate-300 mr-40 shopping  relative">
-            <img src="{% static '/images/cart_img.png' %} " class="text-slate-300" alt="">
-            <div class="absolute bottom-4 right-[-10px] bg-white text-red-500 rounded-full flex items-center justify-center px-2  border border-slate-300">
-              0
-            </div>
-            <div class="absolute top-full shopping_item transition duration-500   right-0 bg-white rounded-sm shadow p-2 ">
-              <div class="flex flex-col items-center p-6">
-                <img src="{% static 'images/no_product_img.png' %}" class="w-10 h-10" alt="">
-                <p class="whitespace-nowrap py-2 text-black ">Chưa có sản phẩm</p>
-              </div>
-            </div>
-          </a>
+        
        </div>
     </div>
             {% comment %} body {% endcomment %}
-    <div class='w-full  '>
+    <div class='w-full  pb-20'>
         {% block content %}{% endblock %}
     </div>
     {% comment %} footer {% endcomment %}
-    <div class='bg-slate-800 w-full text-white mt-40  py-2 shadow border-t border-slate-200 px-10'>
-      <div class="flex items-center justify-between">
-        <label for="" class="cursor-pointer px-4 py-1">Điều khoản</label>
-        <label for="" class="cursor-pointer px-4 py-1">Chính sách bảo mật</label>
-        <label for="" class="cursor-pointer px-4 py-1">Hướng dẫn sử dụng</label>
-        <p class="">Copyright © 2024 Biti's. Powered by Haravan Enterprise</p>
-      </div>
-    <div>
 </body>
-<script src="{% static 'js/slider.js' %}"></script>
+<script >
+  // chỏ tới thẻ input search khi chỏ vào thẻ input hoặc đang gõ thì hiện ô tìm kiếm
+  document.querySelector('.search').addEventListener('input', (e)=>{
+    document.querySelector('.search_item').style.display = 'block'
+
+    document.querySelector('.search_display').innerHTML = e.target.value
+  })
+  document.querySelector('.search').addEventListener('focus', (e)=>{
+    document.querySelector('.search_item').style.display = 'block'
+ 
+    document.querySelector('.search_display').innerHTML = e.target.value
+  })
+  document.querySelector('.search_item').addEventListener('click', (e)=>{
+    e.stopPropagation()
+  })
+  document.querySelector('.search').addEventListener('blur', ()=>{
+    document.querySelector('.search_item').style.display = 'none'
+
+  })
+</script>
 </html>

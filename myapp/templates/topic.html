@@ -1,0 +1,30 @@
+{% extends "base.html" %} {% block title %}Topic {% endblock %}
+{% block content %}
+
+    <div class="flex justify-between py-10  mt-[4rem] px-4">
+       <div class="rounded-sm w-full h-full bg-white shadow">
+           <h2 class="text-5xl text-gray-600 font-bold flex justify-center py-7">{{ post.title }}</h2>
+            <img src="{{ post.image.url }}" class="w-full h-[40rem] " alt="">
+            <div class="px-4 py-1  h-full py-10">
+              <p class="">- {{ post.content }}</p>
+              <p class="text-sm text-gray-600 py-6">- Kết luận: {{post.icon}}</p>
+              <time class="italic  text-[13.5px] flex items-end justify-end">{{post.date}}</time>
+            </div>
+          </div>
+        <!-- related -->
+        <div class="rounded-sm  h-full bg-white shadow p-4   ml-10 w-[30rem]">
+            <h2 class="flex justify-center text-xl font-bold shadow py-2 text-gray-600 whitespace-nowrap">Chủ đề liên quan</h2>
+            
+            {% for topic in relate_to %}
+                <a href="{% url 'topic' topic.id %}" class="flex items-center h-[90px] hover:bg-gray-100   my-2 p-4">
+                    <img src="{{ topic.image.url }}" class="h-full  " alt="">
+                    <div class=" py-1  h-full pl-4 w-full">
+                        <p class="text-ellipsis leading-4 h-full overflow-hidden w-full text-sm">- {{ topic.content }}</p>
+                        <time class="italic w-full  text-[13.5px] text-ellipsis flex items-end justify-end">{{topic.date}}</time>
+                    </div>
+                    
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{%endblock%}

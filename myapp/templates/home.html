@@ -2,184 +2,51 @@
 {% block content %}
 {% load static %}
 <!-- body -->
-<div class="w-full pt-[6.5rem]">
+<div class="w-full pt-[5rem]">
     <div class="w-full  overflow-hidden relative">
         <div class=" flex h-[35rem] overflow-x-auto whitespace-nowrap items-center  w-full banner-slide-container transition-transform east-in-out">
-            
-        
             {% for object in images %}
             <img src="{{ object.image.url }}" class=" w-full flex-1  h-full banner-slide-img rounded-sm shadow" alt="banner">
         {% endfor %}
         </div>
-        <div class="flex items-center absolute bottom-10 right-[42%] justify-center">
-            <p class="px-9 py-1 rounded-full border  border-white-800 banner_Index mx-1 "></p>
-            <p class="px-9 py-1 rounded-full border border-white-800 banner_Index mx-1 "></p>
-            <p class="px-9 py-1 rounded-full border border-white-800 banner_Index mx-1 "></p>
-        </div>
-
-    </div>
-    <div class="px-4 py-6">
-        <h2 class="text-lg font-bold">Sản phẩm</h2>
-        <div class="flex flex-wrap ">
-                <a href="/product" class="w-1/4  h-[329px]  px-6 py-4">
-                   <div class="bg-white  relative hover:shadow-md rounded-md transition duration-300 border border-slate-300">
-                     <img src="{% static 'images/adidas/3e7b04cb8b8adf76cfbee552c4fdad88.jpg' %}" alt="san pham" class="h-[20rem] w-full">
-                    <label  class="absolute top-1 left-1 px-4  text-sm py-0.5 rounded-sm bg-green-500 text-white">Mới</label>
-                    <button  class="absolute top-2 right-2">
-                        <img src="{% static 'images/icons/noHeart.png' %}" class="w-6 h-6" alt="">
-                    </button>
-                    <div class="px-4">
-                        <nav class="flex justify-between px-2 py-2">
-                            <p class="text-sm">6 size</p>
-                            <p class="text-sm">Màu sắc</p>
-                        </nav>
-                            <p class="">Giày thể thao cung cấp năng lượng BHFJK1144</p>
-                            <p class="font-semibold text-red-500 py-2">375,000 <sup class="font-normal">₫</sup></p>
-                    </div>
-                   </div>
-                </a>
-                <a href="/product" class="w-1/4   px-6 py-4">
-                   <div class="bg-white  relative hover:shadow-md rounded-md transition duration-300 border border-slate-300">
-                     <img src="{% static 'images/adidas/3e7b04cb8b8adf76cfbee552c4fdad88.jpg' %}" alt="san pham" class="h-[20rem] w-full">
-                    <label  class="absolute top-1 left-1 px-4  text-sm py-0.5 rounded-sm bg-green-500 text-white">Mới</label>
-                    <button  class="absolute top-2 right-2">
-                        <img src="{% static 'images/icons/noHeart.png' %}" class="w-6 h-6" alt="">
-                    </button>
-                    <div class="px-4">
-                        <nav class="flex justify-between px-2 py-2">
-                            <p class="text-sm">1 size</p>
-                            <p class="text-sm">Màu sắc</p>
-                        </nav>
-                            <p class="">Basketball High-Top Sneakers:</p>
-                            <p class="font-semibold text-red-500 py-2">405,000 <sup class="font-normal">₫</sup></p>
-                    </div>
-                   </div>
-                </a>
-                <a href="/product" class="w-1/4   px-6 py-4">
-                   <div class="bg-white  relative hover:shadow-md rounded-md transition duration-300 border border-slate-300">
-                     <img src="{% static 'images/adidas/99bc96a23d230a26d1d5f7b3769a72e6.jpg' %}" alt="san pham" class="h-[20rem] w-full">
-                    <label  class="absolute top-1 left-1 px-4  text-sm py-0.5 rounded-sm bg-green-500 text-white">Mới</label>
-                    <button  class="absolute top-2 right-2">
-                        <img src="{% static 'images/icons/noHeart.png' %}" class="w-6 h-6" alt="">
-                    </button>
-                    <div class="px-4">
-                        <nav class="flex justify-between px-2 py-2">
-                            <p class="text-sm">5 size</p>
-                            <p class="text-sm">Màu sắc</p>
-                        </nav>
-                            <p class="">Hiking Trail Shoes</p>
-                            <p class="font-semibold text-red-500 py-2">205,000 <sup class="font-normal">₫</sup></p>
-                    </div>
-                   </div>
-                </a>
-                <a href="/product" class="w-1/4   px-6 py-4">
-                   <div class="bg-white  relative hover:shadow-md rounded-md transition duration-300 border border-slate-300">
-                     <img src="{% static 'images/adidas/73ae7f8b8b61e66b30fd940c09af45fd.jpg' %}" alt="san pham" class="h-[20rem] w-full">
-                    <label  class="absolute top-1 left-1 px-4  text-sm py-0.5 rounded-sm bg-green-500 text-white">Mới</label>
-                    <button  class="absolute top-2 right-2">
-                        <img src="{% static 'images/icons/noHeart.png' %}" class="w-6 h-6" alt="">
-                    </button>
-                    <div class="px-4">
-                        <nav class="flex justify-between px-2 py-2">
-                            <p class="text-sm">3 size</p>
-                            <p class="text-sm">Màu sắc</p>
-                        </nav>
-                            <p class="">Giày thể thao cung cấp năng lượng BHFJK1144</p>
-                            <p class="font-semibold text-red-500 py-2">605,000 <sup class="font-normal">₫</sup></p>
-                    </div>
-                   </div>
-                </a>
-                <a href="/product" class="w-1/4   px-6 py-4">
-                   <div class="bg-white  relative hover:shadow-md rounded-md transition duration-300 border border-slate-300">
-                     <img src="{% static 'images/adidas/44b94ce894c215a7b2635c66ae83bc7d.jpg' %}" alt="san pham" class="h-[20rem] w-full">
-                    <label  class="absolute top-1 left-1 px-4  text-sm py-0.5 rounded-sm bg-green-500 text-white">Mới</label>
-                    <button  class="absolute top-2 right-2">
-                        <img src="{% static 'images/icons/noHeart.png' %}" class="w-6 h-6" alt="">
-                    </button>
-                    <div class="px-4">
-                        <nav class="flex justify-between px-2 py-2">
-                            <p class="text-sm">1 size</p>
-                            <p class="text-sm">Màu sắc</p>
-                        </nav>
-                            <p class="">Jogging Running Shoes</p>
-                            <p class="font-semibold text-red-500 py-2">245,000 <sup class="font-normal">₫</sup></p>
-                    </div>
-                   </div>
-                </a>
-                <!-- aaa -->
-                <a href="/product" class="w-1/4   px-6 py-4">
-                   <div class="bg-white  relative hover:shadow-md rounded-md transition duration-300 border border-slate-300">
-                     <img src="{% static 'images/adidas/9e159fb562de69246d6974ce8698d822.jpg' %}" alt="san pham" class="h-[20rem] w-full">
-                    <label  class="absolute top-1 left-1 px-4  text-sm py-0.5 rounded-sm bg-green-500 text-white">Mới</label>
-                    <button  class="absolute top-2 right-2">
-                        <img src="{% static 'images/icons/noHeart.png' %}" class="w-6 h-6" alt="">
-                    </button>
-                    <div class="px-4">
-                        <nav class="flex justify-between px-2 py-2">
-                            <p class="text-sm">6 size</p>
-                            <p class="text-sm">Màu sắc</p>
-                        </nav>
-                            <p class="">Kickboxing Sneakers</p>
-                            <p class="font-semibold text-red-500 py-2">375,000 <sup class="font-normal">₫</sup></p>
-                    </div>
-                   </div>
-                </a>
-                <a href="/product" class="w-1/4   px-6 py-4">
-                   <div class="bg-white  relative hover:shadow-md rounded-md transition duration-300 border border-slate-300">
-                     <img src="{% static 'images/adidas/9e159fb562de69246d6974ce8698d822.jpg' %}" alt="san pham" class="h-[20rem] w-full">
-                    <label  class="absolute top-1 left-1 px-4  text-sm py-0.5 rounded-sm bg-green-500 text-white">Mới</label>
-                    <button  class="absolute top-2 right-2">
-                        <img src="{% static 'images/icons/noHeart.png' %}" class="w-6 h-6" alt="">
-                    </button>
-                    <div class="px-4">
-                        <nav class="flex justify-between px-2 py-2">
-                            <p class="text-sm">6 size</p>
-                            <p class="text-sm">Màu sắc</p>
-                        </nav>
-                            <p class="">Kickboxing Sneakers</p>
-                            <p class="font-semibold text-red-500 py-2">375,000 <sup class="font-normal">₫</sup></p>
-                    </div>
-                   </div>
-                </a>
-                <a href="/product" class="w-1/4   px-6 py-4">
-                   <div class="bg-white  relative hover:shadow-md rounded-md transition duration-300 border border-slate-300">
-                     <img src="{% static 'images/adidas/9e159fb562de69246d6974ce8698d822.jpg' %}" alt="san pham" class="h-[20rem] w-full">
-                    <label  class="absolute top-1 left-1 px-4  text-sm py-0.5 rounded-sm bg-green-500 text-white">Mới</label>
-                    <button  class="absolute top-2 right-2">
-                        <img src="{% static 'images/icons/noHeart.png' %}" class="w-6 h-6" alt="">
-                    </button>
-                    <div class="px-4">
-                        <nav class="flex justify-between px-2 py-2">
-                            <p class="text-sm">6 size</p>
-                            <p class="text-sm">Màu sắc</p>
-                        </nav>
-                            <p class="">Kickboxing Sneakers</p>
-                            <p class="font-semibold text-red-500 py-2">375,000 <sup class="font-normal">₫</sup></p>
-                    </div>
-                   </div>
-                </a>
-                <a href="/product" class="w-1/4   px-6 py-4">
-                   <div class="bg-white  relative hover:shadow-md rounded-md transition duration-300 border border-slate-300">
-                     <img src="{% static 'images/adidas/9e159fb562de69246d6974ce8698d822.jpg' %}" alt="san pham" class="h-[20rem] w-full">
-                    <label  class="absolute top-1 left-1 px-4  text-sm py-0.5 rounded-sm bg-green-500 text-white">Mới</label>
-                    <button  class="absolute top-2 right-2">
-                        <img src="{% static 'images/icons/noHeart.png' %}" class="w-6 h-6" alt="">
-                    </button>
-                    <div class="px-4">
-                        <nav class="flex justify-between px-2 py-2">
-                            <p class="text-sm">6 size</p>
-                            <p class="text-sm">Màu sắc</p>
-                        </nav>
-                            <p class="">Kickboxing Sneakers</p>
-                            <p class="font-semibold text-red-500 py-2">375,000 <sup class="font-normal">₫</sup></p>
-                    </div>
-                   </div>
-                </a>
-        </div>
         
     </div>
+    <a href="{% url 'addpost' %}" class="text-blue-700 text-base font-bold px-10 my-10 block"> -- tới trang tạo blog----</a>
+    <h1 class="flex justify-center font-bold text-gray-600 text-4xl my-4">Welcome to our Blog</h1>
+   {% if posts %} 
+    <ul class="flex items-center px-10 flex-wrap">
+    {% for post in posts %}
+       <div class="w-1/4 overflow-hidden  h-[25rem] px-2 py-2">
+         <a href="{% url 'topic' post.id %}" class="h-full w-full">
+          <div class="rounded-sm w-full  h-full bg-white shadow ">
+            <img src="{{ post.image.url }}" class="w-full h-1/2" alt="">
+            <div class="px-4 py-1  h-full ">
+              <p class="text-base font-bold whitespace-nowrap overflow-hidden text-gray-700">Chủ đề: {{ post.title }}</p>
+              <p class="leading-5 text-sm h-[6.5rem] overflow-hidden text-ellipsis">- {{ post.content }}</p>
+             <div class="flex justify-between">
+                <form method="post" action="{% url 'delete_post' post.id %}" class="cursor-pointer">
+                    {% csrf_token %}
+                    <input type="submit" value="xoá" class="text-red-500 cursor-pointer">
+                </form>
+                <a href='/update/{{post.id}}' class=" text-red-500 px-4">sửa</a>
+             </div>
+           
+                <time class="italic  text-[13.5px] flex items-end justify-end">{{post.date}}</time>
+         
+            </div>
+          </div>
+        </a>
+       </div>
+    {% endfor %}
+    </ul>
+   {% else %} 
+   <div class="text-4xl ml-10 mt-20 ">  Chưa có Hãy thêm vào vài blog cho bản thân nào. </div>
+   {% endif %} 
+
+    
 </div>
 <script >
+    // liên tục thay đổi ảnh banner sau 2s
     var currentIndex = 0;
 var images = document.querySelectorAll(".banner-slide-img");
 setInterval(function () {

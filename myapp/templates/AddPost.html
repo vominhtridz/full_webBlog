@@ -1,0 +1,46 @@
+{% extends "base.html" %} {% block title %} home page {% endblock %}
+{% block content %}
+{% load static %}
+<!-- body -->
+<div class="w-full pt-[5rem] my-10">
+    <!-- add post -->
+    <!-- Blogs -->
+    <h2 class="font-bold text-4xl my-6 text-gray-600 flex justify-center" id="PostNews">Thêm Blogs</h2>
+    <!-- add blog content -->
+    <form method="POST" enctype="multipart/form-data" class="p-6 mx-20 my-4 bg-white rounded-sm">
+  {% csrf_token %}
+  <div class="mb-4">
+    <label for="title" class="block text-gray-700 text-sm font-bold mb-2">Chủ đề:</label>
+    <input type="text" id="title" name="title" placeholder="Nhập chủ đề" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+  </div>
+  <div class="mb-4">
+    <label for="topic" class="block text-gray-700 text-sm font-bold mb-2">Phân loại:</label>
+    <select name="topic" id="topic" class="border border-slate-500 px-2 py-1">
+        <option value="du lịch">du lịch</option>
+        <option value="thức ăn">thức ăn</option>
+        <option value="công việc">công việc</option>
+        <option value="giải trí">giải trí</option>
+    </select>
+  </div>
+  <div class="mb-4">
+    <label for="content" class="block text-gray-700 text-sm font-bold mb-2">Nội dung:</label>
+    <textarea id="content" name="content" placeholder="Nhập nội dung" rows="6" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"></textarea>
+  </div>
+  <div class="mb-4">
+    <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Hình ảnh:</label>
+    <input type="file" id="image" name="image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+  </div>
+  <div class="mb-4">
+    <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Ngày tháng năm:</label>
+    <input type="date" id="date" name="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+  </div>
+  <div class="mb-4">
+    <label for="icon" class="block text-gray-700 text-sm font-bold mb-2">Thêm nội dung:</label>
+    <input type="text" id="icon" name="icon" placeholder="Nhập Nội dung" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+  </div>
+  <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Thêm bài viết</button>
+        </form>
+
+</div>
+
+{%endblock%}

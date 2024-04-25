@@ -1,6 +1,6 @@
 {% extends "base.html" %} {% block title %} home page {% endblock %}
 {% block content %}
-
+    {% load static %}
     <div class="container mt-[14rem] mx-auto w-[40rem]" id="container">
         <div class=" w-full  sign-in">
             <form class="loginForm w-full"  method="post">
@@ -14,7 +14,18 @@
                 <span>Hoặc nhập Email mật khẩu</span>
                  <div class="w-full">
                    {% csrf_token %}
-                     {{ form.as_p }}
+                <div class="">
+                    <label for="username" class="text-gray-600 font-bold">Tên đăng nhập:</label>
+                    {{form.username}}
+                </div>
+                <div class="">
+                    <label for="username" class="text-gray-600 font-bold">Mật khẩu:</label>
+                    {{form.password1}}
+                </div>
+                <div class="">
+                    <label for="username" class="text-gray-600 font-bold">Nhập lại mật khẩu:</label>
+                    {{form.password2}}
+                </div>
                  </div>
                 <div class="flex justify-between w-full my-2">
                     <button class="bg-blue-800 px-4 py-2 rounded-sm text-sm text-white" type="submit">Đăng Kí</button>

@@ -4,7 +4,7 @@ display: block;
 .childCateProd{
     display: none;
 }
-.search:focus + .searched{
+.search:focus  .searched{
     display: block
 }
 .searched {

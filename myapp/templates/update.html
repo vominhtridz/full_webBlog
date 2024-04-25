@@ -1,0 +1,43 @@
+{% extends "base.html" %} {% block title %} cập nhật {% endblock %}
+{% block content %}
+{% load static %}
+<!-- body -->
+
+<div class="w-full pt-[5rem] my-10">
+    <!-- add post -->
+    <!-- Blogs --> 
+    <h2 class="font-bold text-4xl my-6 text-gray-600 flex justify-center" id="PostNews">cập nhật Blogs</h2>
+    <!-- add blog content -->
+    <form method="post" class="p-6 mx-20 my-4 bg-white rounded-sm">
+        {% csrf_token %}
+        <div class="py-1">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">chủ đề </label>
+            {{form.title}}
+        </div>
+         <div class="py-1">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Phân loại </label>
+            {{form.topic}}
+        </div>
+
+         <div class="py-1">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Nội dung </label>
+            {{form.content}}
+        </div>
+         <div class="py-1">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Hình ảnh</label>
+            {{form.image}}
+        </div>
+        <div class="py-1">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Ngày tháng năm</label>
+            {{form.date}}
+        </div>
+        <div class="py-1">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Thêm nội dung</label>
+            {{form.icon}}
+        </div>
+        <button type="submit " class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >Save</button>
+    </form>
+
+</div>
+
+{%endblock%}
