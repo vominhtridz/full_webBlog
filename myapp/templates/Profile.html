@@ -11,10 +11,11 @@
                 <button class="w-full py-2 text-left hover:text-red-500">Bảo mật</button>
             </div>
         </div>
-        <form action="/saveprofile/{{current_user.id}}" class="form_profile h-full w-full shadow bg-white rounded-sm mx-4 py-4 pl-16 pr-4" enctype="multipart/form-data">
+        <form  method="POST"   class="form_profile h-full w-full shadow bg-white rounded-sm mx-4 py-4 pl-16 pr-4" enctype="multipart/form-data">
             <h2 class="py-2 text-2xl text-gray-600 tracking-wide flex justify-center font-bold">Thông tin cá nhân</h2>
             <div class="w-full">
                 <div class="flex  items-center py-3 w-full"> 
+                    {% csrf_token %}
                     <label for="profilename" class="whitespace-nowrap  w-[110px] ">Tên :</label>
                     <div class="w-1/2">
                         {{form.defaultName}}
@@ -44,11 +45,12 @@
                 </div>
                 <div class="flex  items-center py-3 "> 
                     <label for="usergender" class="w-[110px]">Giới tính :</label>
-                    <select name="gender" id="" class="border border-gray-500 text-sm px-4 py-1.5">
-                        <option id="gender_men" value="Nam">Nam</option>
-                        <option id="gender_women" value="Nữ">Nữ</option>
-                        <option id="gender_other" value="Khác">Khác</option>
-                    </select>
+                    <select class="border border-gray-500 text-sm px-4 py-1.5" name="gender">
+                <option value="Nam">Nam</option>
+                <option value="Nữ">Nữ</option>
+                <option value="Khác">Khác</option>
+            </select>
+
                 </div>
                 <div class="flex birthday  items-center py-3"> 
                     <label for="day" class="w-[110px]">Ngày sinh :</label>

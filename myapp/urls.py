@@ -18,7 +18,6 @@ urlpatterns = [
     path('register/', views.register, name='register'),
     path('delete/<int:post_id>/', views.delete_post, name='delete_post'),
     path('update/<int:post_id>/', views.updatePost, name='update_post'),
-    path('saveprofile/<int:user_id>/', views.saveProfile, name='saveProfile'),
     path('addpost/', views.AddPost, name='addpost'),
     path('logout/', views.user_logout, name='logout')
 ]

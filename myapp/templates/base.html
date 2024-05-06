@@ -74,9 +74,12 @@
         {% endif %}
 
         {% if user %}
-            <a href="/user/profile/{{current_user.id}}" class="px-2 text-sm relative logged_in"> {{ user.username }}</a>
+            <a href="/user/profile/{{current_user.id}}" class="px-2 text-sm relative logged_in flex items-center">
+              <img src="/static/images/user-icon.png" class="mr-2 w-6 h-6 rounded-full" alt=""> 
+              {{ user.username }}
+            </a>
             {% if user.username %}
-            <a href="{% url 'logout' %}" class="absolute top-12 right-12 logged_in_item bg-white px-6 py-1.5 shadow whitespace-nowrap">Đăng xuất</a>
+            <a href="{% url 'logout' %}" class="absolute top-14 right-12 logged_in_item bg-white px-6 py-1.5 shadow whitespace-nowrap">Đăng xuất</a>
           {% endif %}
         {% endif %}
 

@@ -12,14 +12,13 @@ from .models import UserProfile
 class UserProfileForm(forms.ModelForm):
     email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'outline-blue-300 px-2 py-1.5 border border-gray-400 text-sm rounded-sm w-full', 'placeholder': 'Nhập email...'}))
     address = forms.CharField(widget=forms.TextInput(attrs={'class': 'outline-blue-300 px-2 py-1.5 border border-gray-400 text-sm rounded-sm w-full', 'placeholder': 'Nhập địa chỉ...'}))
-    day = forms.CharField(widget=forms.Select(attrs={'class': 'day border border-gray-400 rounded-sm px-3 py-1 mx-1'}))
-    month = forms.CharField(widget=forms.Select(attrs={'class': 'month border border-gray-400 rounded-sm px-3 py-1 mx-1'}))
-    year = forms.CharField(widget=forms.Select(attrs={'class': 'year border border-gray-400 rounded-sm px-3 py-1 mx-1'}))
+    day = forms.IntegerField(widget=forms.Select(attrs={'class': 'day border border-gray-400 rounded-sm px-3 py-1 mx-1'}))
+    month = forms.IntegerField(widget=forms.Select(attrs={'class': 'month border border-gray-400 rounded-sm px-3 py-1 mx-1'}))
+    year = forms.IntegerField(widget=forms.Select(attrs={'class': 'year border border-gray-400 rounded-sm px-3 py-1 mx-1'}))
     defaultName = forms.CharField(widget=forms.TextInput(attrs={'class': 'outline-blue-300 px-2 py-1.5 border border-gray-400 text-sm rounded-sm w-full', 'placeholder': 'Nhập tên...'}))
     image = forms.ImageField(widget=forms.FileInput(attrs={'class': 'px-2 py-1.5  text-sm rounded-sm w-full', 'placeholder': 'Nhập ...'}))
     gender = forms.CharField(widget=forms.Select(attrs={'class': 'border border-gray-500 text-sm px-4 py-1.5'}))
-    phone_number = forms.IntegerField(widget=forms.NumberInput(attrs={'class': 'outline-blue-300 px-2 py-1.5 border border-gray-400 text-sm rounded-sm w-full', 'placeholder': 'Nhập số điện thoại...'}))
-
+    phone_number = forms.CharField(widget=forms.TextInput(attrs={'class': 'outline-blue-300 px-2 py-1.5 border border-gray-400 text-sm rounded-sm w-full', 'placeholder': 'Nhập số điện thoại...'}))
     class Meta:
         model = UserProfile
         fields = ['phone_number', 'address', 'day', 'month', 'year', 'defaultName', 'email', 'image', 'gender']

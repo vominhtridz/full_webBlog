@@ -8,16 +8,14 @@ from myapp.models import Image
 from django.contrib.auth import logout
 from myapp.forms import PostForm
 from myapp.models import Post
+from myapp.models import UserProfile
 from myapp.models import Comment
 from myapp.models import CommentChild
-from myapp.models import UserProfile
 from myapp.forms import CommentForm
 from myapp.forms import CommentChildForm
 from myapp.forms import UserProfileForm
-import json
 from django.contrib import messages
-
-
+from django.core.exceptions import ObjectDoesNotExist
 # Create your views here.
 # home
 def home(request):
@@ -42,33 +40,31 @@ def blog_ofMine(request):
     posts = Post.objects.filter(author= request.user)
     return render(request, 'blog_ofMine.html', {'posts': posts,'current_user':current_user})
 #Profile
-def Profile(request,user_id):
-    if request.user.is_authenticated == False:
-        return redirect('login')
-   
+def Profile(request, user_id):
     current_user = request.user if request.user.is_authenticated else None 
-    form =   UserProfileForm(request.POST, request.FILES)
     posts = Post.objects.all()
-    return render(request, 'Profile.html', {'posts': posts,'current_user':current_user,'form':form})
-#save
-
-def saveProfile(request,user_id):
+    try:
+        DefaultProfile = UserProfile.objects.get(id=user_id)
+    except ObjectDoesNotExist:
+        # Handle the case where the UserProfile does not exist
+        DefaultProfile = None
 
     if request.user.is_authenticated == False:
         return redirect('login')
-    Profile = get_object_or_404(UserProfile, id=user_id)
-    form =   UserProfileForm(request.POST, request.FILES, instance= Profile)
-    if form.is_valid():
-        formDB = form.save(commit= False)
-        formDB.id = user_id
-        formDB.gender = request.POST.get('gender')
-        formDB.save()
-        messages.success(request, 'Lưu thông tin cá nhân thành công.')
-        return redirect('home')
-    messages.error(request, 'Kiểm tra lại các trường đã nhập đúng chưa.')
-    return render(request, 'Profile.html',{'form':form})
     
-            
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=DefaultProfile)
+        if form.is_valid():
+            FormDB = form.save(commit=False)
+            FormDB.id = user_id
+            form.save()
+            messages.success(request, 'Lưu thông tin cá nhân thành công.')
+            return redirect('home')
+    else:
+        form = UserProfileForm(instance=DefaultProfile)  
+        
+    return render(request, 'Profile.html', {'posts': posts, 'current_user': current_user, 'form': form, 'DefaultProfile': DefaultProfile})
+    
         
 
 # xoá bài blog 
