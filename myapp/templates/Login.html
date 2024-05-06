@@ -4,22 +4,17 @@
     <div class="container mt-[14rem] mx-auto w-[40rem]" id="container">
         <div class=" w-full  ">
             <form class="loginForm  w-full" method="post">
-                <h1 class="text-lg font-bold">Đăng nhập</h1>
-                <div class="social-icons">
-                    <label class="icon px-2"><i class="fa-brands cursor-pointer fa-google-plus-g"></i></label>
-                    <label class="icon px-2"><i class="fa-brands cursor-pointer fa-facebook-f"></i></label>
-                    <label class="icon px-2"><i class="fa-brands cursor-pointer fa-github"></i></label>
-                    <label class="icon px-2"><i class="fa-brands cursor-pointer fa-linkedin-in"></i></label>
-                </div>
+                <h1 class="text-xl py-2 font-bold">Đăng nhập</h1>
                 
-                <span>Hoặc sử dụng email và mật khẩu</span>
+                
+                <span> Nhập tên người dùng và mật khẩu đã đăng kí.</span>
                 <div class="w-full">
                     {% csrf_token %}
                 {{ form.as_p }}
                 </div>
                 <button class="text-blue-500 ml-auto">Quên mật khẩu?</button>
                 <div class="flex justify-between w-full my-2">
-                    <button type="submit" class="bg-blue-800 text-sm rounded-md px-4 py-2  text-white">Đăng Nhập</button>
+                    <button type="submit" class="bg-red-600 text-sm rounded-md px-4 py-2  text-white">Đăng Nhập</button>
                     <div class="flex items-center">
                         <p class="pt-1 px-2 mt-0 mb-0 ">chưa có tài khoản? </p>
                         <a href="{% url 'register' %}"  class="my-0"><p class="p-0 text-blue-600 underline">Đăng Kí</p></a>

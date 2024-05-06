@@ -5,7 +5,7 @@
 <div class="w-full pt-[5rem] my-10">
     <!-- add post -->
     <!-- Blogs -->
-    <h2 class="font-bold text-4xl my-6 text-gray-600 flex justify-center" id="PostNews">Thêm Blogs</h2>
+    <h2 class="font-bold text-4xl my-6 text-gray-600 flex justify-center" id="PostNews">Tạo Blogs mới</h2>
     <!-- add blog content -->
     <form method="POST" enctype="multipart/form-data" class="p-6 mx-20 my-4 bg-white rounded-sm">
   {% csrf_token %}
@@ -30,15 +30,8 @@
     <label for="image" class="block text-gray-700 text-sm font-bold mb-2">Hình ảnh:</label>
     <input type="file" id="image" name="image" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
   </div>
-  <div class="mb-4">
-    <label for="date" class="block text-gray-700 text-sm font-bold mb-2">Ngày tháng năm:</label>
-    <input type="date" id="date" name="date" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-  </div>
-  <div class="mb-4">
-    <label for="icon" class="block text-gray-700 text-sm font-bold mb-2">Thêm nội dung:</label>
-    <input type="text" id="icon" name="icon" placeholder="Nhập Nội dung" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-  </div>
-  <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Thêm bài viết</button>
+
+  <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Thêm blog</button>
         </form>
 
 </div>

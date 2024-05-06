@@ -28,7 +28,10 @@
                                 </form>
                                 <a href='/update/{{post.id}}' class=" text-red-500 px-4">sửa</a>
                             </div>
-                        <time class="italic  text-[13.5px] flex items-end justify-end">{{post.date}}</time>
+                         <div class="flex items-center justify-between py-2 leading-4">
+                            <p class="italic  text-[13.5px] flex items-end justify-end ">Tác giả: {{post.author}}</p>
+                                <time class="italic  text-[13.5px] flex items-end justify-end ">{{post.created_at}}</time>
+                        </div>
                         </div>
 
                     </div>

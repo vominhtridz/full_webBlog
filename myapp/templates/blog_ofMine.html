@@ -1,0 +1,36 @@
+{% extends "base.html" %} {% block title %}Chủ đề  {% endblock %}
+{% block content %}
+<div class="mt-28">
+<h2 class="text-5xl font-bold text-gray-500 py-10 flex justify-center">Tất cả blog của tôi </h2>
+{% if posts %} 
+    <ul class="flex items-center px-10 flex-wrap">
+    {% for post in posts %}
+       <div class="w-1/4 overflow-hidden  h-[25rem] px-2 py-2">
+         <a href="{% url 'topic' post.id %}" class="h-full w-full">
+          <div class="rounded-sm w-full  h-full bg-white shadow ">
+            <img src="{{ post.image.url }}" class="w-full h-1/2" alt="">
+            <div class="px-4 py-1  h-full ">
+              <p class="text-base font-bold whitespace-nowrap overflow-hidden text-gray-700">Chủ đề: {{ post.title }}</p>
+              <p class="leading-5 text-sm h-[6.5rem] overflow-hidden text-ellipsis">- {{ post.content }}</p>
+             <div class="flex justify-between">
+                <form method="post" action="{% url 'delete_post' post.id %}" class="cursor-pointer">
+                    {% csrf_token %}
+                    <input type="submit" value="xoá" class="text-red-500 cursor-pointer">
+                </form>
+                <a href='/update/{{post.id}}' class=" text-red-500 px-4">sửa</a>
+             </div>
+           
+                <time class="italic  text-[13.5px] flex items-end justify-end">{{post.created_at}}</time>
+         
+            </div>
+          </div>
+        </a>
+       </div>
+    {% endfor %}
+    </ul>
+   {% else %} 
+   <div class="text-4xl ml-10 mt-20 flex items-center">  hiện tại không có blog nào <a href="{% url 'addpost' %}" class="text-blue-700 text-base font-bold px-10 my-10 block hover:underline"> tạo blog</a> </div>
+   {% endif %} 
+</div>
+
+{%endblock%}

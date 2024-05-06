@@ -1,30 +1,215 @@
 {% extends "base.html" %} {% block title %}Topic {% endblock %}
 {% block content %}
-
-    <div class="flex justify-between py-10  mt-[4rem] px-4">
+   <div class="pt-10 w-full  mt-[5rem] h-full ">
+     <div class="flex justify-between px-16 h-full">
        <div class="rounded-sm w-full h-full bg-white shadow">
-           <h2 class="text-5xl text-gray-600 font-bold flex justify-center py-7">{{ post.title }}</h2>
-            <img src="{{ post.image.url }}" class="w-full h-[40rem] " alt="">
-            <div class="px-4 py-1  h-full py-10">
+            {% if current_user == post.author %}
+                  <div class="flex justify-between p-10 text-3xl font-bold uppercase">
+                    <a href='/update/{{post.id}}' class=" text-red-500 px-4">sửa</a>
+                    <form method="post" action="{% url 'delete_post' post.id %}" class="cursor-pointer uppercase">
+                        {% csrf_token %}
+                        <input type="submit" value="X" class="text-red-500 cursor-pointer">
+                    </form>
+                </div>
+            {% endif %}
+           <h2 class="text-6xl uppercase text-gray-600 font-bold flex justify-center pb-16 pt-6">{{ post.title }}</h2>
+            <img src="{{ post.image.url }}" class="w-[85%] mx-auto h-[40rem] " alt="">
+            <div class="px-10  py-1  h-full py-10">
               <p class="">- {{ post.content }}</p>
-              <p class="text-sm text-gray-600 py-6">- Kết luận: {{post.icon}}</p>
-              <time class="italic  text-[13.5px] flex items-end justify-end">{{post.date}}</time>
+               <div class="flex items-center justify-between pt-10 leading-4">
+                  <p class="italic  text-[13.5px] flex items-end justify-end ">Tác giả: {{post.author}}</p>
+                    <time class="italic  text-[13.5px] flex items-end justify-end ">{{post.created_at}}</time>
+              </div>
             </div>
           </div>
-        <!-- related -->
-        <div class="rounded-sm  h-full bg-white shadow p-4   ml-10 w-[30rem]">
-            <h2 class="flex justify-center text-xl font-bold shadow py-2 text-gray-600 whitespace-nowrap">Chủ đề liên quan</h2>
-            
-            {% for topic in relate_to %}
-                <a href="{% url 'topic' topic.id %}" class="flex items-center h-[90px] hover:bg-gray-100   my-2 p-4">
-                    <img src="{{ topic.image.url }}" class="h-full  " alt="">
-                    <div class=" py-1  h-full pl-4 w-full">
-                        <p class="text-ellipsis leading-4 h-full overflow-hidden w-full text-sm">- {{ topic.content }}</p>
-                        <time class="italic w-full  text-[13.5px] text-ellipsis flex items-end justify-end">{{topic.date}}</time>
-                    </div>
-                    
-                </a>
-            {% endfor %}
+
+    
         </div>
-    </div>
+        <!----------------------------- POST COMMENT----------------- -->
+      <div class="px-16 mb-6">
+        <div class="rounded-sm w-full h-full  bg-white shadow p-8 pb-12 mt-10">
+        <h2 class="text-4xl text-gray-600 font-bold ">Bình luận</h2>
+        <form method="POST" enctype="multipart/form-data" action="{% url 'comment' post.id %}" autocomplete="off"  class=" my-4">
+            {% csrf_token %}
+            <div class="flex items-center">
+              <div class="flex ">
+                <img src="/static/images/user-icon.png" class="w-8 h-8 rounded-full" alt="">
+                 <div>
+                   <p class="px-2 italic leading-1 text-[13.5px] ">{% if current_user %}{{current_user  }}{% else %}'user'{% endif %}
+                     
+                  </p>
+                 
+                 </div>
+
+              </div>
+              {{comment_temp.comment_content}}
+            </div>
+            <!-- nút bình luận -->
+            <input type="submit" value=" bình luận" class="cursor-pointer px-4 py-1.5 rounded-md text-white bg-red-500 hover:bg-red-600 mt-4 float-right"/>
+        </form>
+        <!---------------------- Comment-------- -->
+        {% if Post_Comments %}
+          {% for comment in Post_Comments %}
+           {% if comment.topic_id == post.id  %}
+               <div class=" my-2 Post_Comment">
+                    <div  class="flex ">
+                      <a href="#"><img src="/static/images/user-icon.png" class="w-8 h-8 rounded-full" alt=""></a>
+
+                      <div class="flex items-baseline">
+                        <p  class="px-3 italic  leading-1 comment_author  text-[18px] " >{{comment.author}}</p>
+                          <time class="italic  whitespace-norwrap  text-[13.5px] flex items-end justify-end ">{{post.created_at}}</time>
+                          </div>
+                    </div>
+                    <p class="text-base pl-11 leading-4">{{comment.comment_content}}</p>
+                    <div class="flex justify-between   pl-8">
+                      <div class="">
+                        <div  class="flex items-center">
+                              <div   class="like px-2 text-sm w-10 flex items-center">
+                                <p class="pr-2 pt-1">1</p>
+                                <button type="submit"  class="like-btn" data-post-id="{{ post.id }}" data-comment-id="{{ comment.id }}">
+                                  <div class="w-[1.5rem] pl-1">
+                                    <img src="/static/images/like.png" alt="" class="w-full block text-base">
+                                  </div>
+                                </button>
+                              </div>
+                              <label for="CMT_child" class="ml-8 pt-1.5 hover:text-red-600 text-[14px]  reply-btn cursor-pointer"  onclick="handleShowReply(this)">phản hồi</label>
+                        </div>
+                          {% if comment.reply_count > 0 %}
+                          <button class="text-blue-500 text-[14.5px] my-1 mx-6 font-semibold total_reply" onclick="handleShowComment(this, '{{comment.id}}')">
+                            {{comment.reply_count}}  bình luận
+                          </button>
+                          {% endif %}
+                          
+                        
+                      </div>
+                        <time class="italic  text-[13.5px] flex items-end justify-end ">{{comment.created_at}}</time>
+                    </div>
+                    <!-- -----------------------repty form------------------ -->
+                    <div class="reply-form pt-0.5 hidden border-t border-gray-300 ">
+                     
+                        <button   class="outline-none hiddenBtn_cmt text-xl text-gray-600 font-bold flex justify-end ml-auto pr-4 " onclick="handleCloseReply(this)">X</button>
+                        <form method="POST" autocomplete="off" enctype="multipart/form-data"  action="{% url 'comment_child' post.id comment.id %}" class=" pb-8 pl-10 ">
+                          {% csrf_token %}
+                          <input type="hidden" class="px-3 italic  leading-1 comment_author  text-[15px] " name='comment_author' value="{{comment.author}}" />
+
+                          <div class="flex items-center">
+                            <div class="flex ">
+                              <img src="/static/images/user-icon.png"  class="w-6 h-6 rounded-full" alt="">
+                              <div>
+                                <p class="px-2 italic leading-1 text-[13.5px] ">{% if current_user %}{{current_user  }}{% else %}'user'{% endif %}</p>
+                                <p class="px-2 italic  leading-1  text-[13.5px] ">#321</p>
+                              </div>
+                            </div>
+                            {{commentChild_temp.comment_content}}
+                          </div>
+                          <input type="submit" value=" bình luận" class=" cursor-pointer px-3 text-sm py-1.5 rounded-md text-white bg-red-500 hover:bg-red-600 mt-1 float-right"/>
+                        </form>
+                    
+                    </div>
+            <!-- ---------------------comment Child--------------------- -->
+                <div class="comment_children hidden pl-11"> 
+                
+                </div>
+                </div>
+           {% endif %}
+
+          {% endfor %}
+          <!------------------------ commnet child----------------------- -->
+            <div class="hidden getComment_child">
+              {% for comment_child in Post_CommentChild %} 
+                    
+                      <div class="comment_{{comment_child.commentChild_id}}">
+                      <div  class="flex "> <a href="#"><img src="/static/images/user-icon.png" class="w-6 h-6 rounded-full" alt=""></a> 
+                        <div class="flex items-baseline"> 
+                          <p  class="px-3 italic  leading-1  comment_author  text-[12px] font-semibold " >{{comment_child.author}}</p> <time class="italic  whitespace-norwrap font-normal  text-[13.5px] flex items-end justify-end ">{{post.created_at}}</time> </div> </div>
+                          <p class="text-base pl-11 my-0 py-0">{% if comment_child.tag != ''%}@{{ comment_child.tag }} {% endif %} {{comment_child.comment_content}}</p>
+                            <div class="flex justify-between  py-2 pl-8"> 
+                              <div  class="flex items-center"> 
+                              <div   class="px-2 text-sm w-10 flex items-center"> 
+                                <p class="pr-2 pt-1">1</p> <button type="submit" class="likeChild-btn" >
+                                  <div class="w-[1.5rem] pl-1"> 
+                                    <img src="/static/images/like.png" alt="" class="w-full block text-base">
+                                  </div>
+                                  </button> 
+                                  </div> 
+                                  <label class="cursor-pointer ml-8 pt-1.5 hover:text-red-600 text-[14px]  reply-btn" form="CMT_child" onclick="handleShowReply(this)">phản hồi</label> </div> <time class="italic  text-[13.5px] flex items-end justify-end ">{{comment_child.created_at}}</time> 
+                                </div>
+                                <!-- -----------------------repty form------------------ --> 
+                                <div class="reply-form pt-0.5 hidden border-t border-gray-300 "> 
+                                  <button   class="outline-none hiddenBtn_cmt text-xl text-gray-600 font-bold flex justify-end ml-auto pr-4 " onclick="handleCloseReply(this)">X</button> 
+                                  <form method="POST" autocomplete="off" enctype="multipart/form-data"  action="{% url 'comment_tag' post.id comment_child.commentChild_id comment_child.author %}" class=" pb-8 pl-10 "> 
+                                    {% csrf_token %} 
+                                    <input type="hidden" class="px-3 italic  leading-1 comment_author  text-[15px] " name='comment_author' value="{{comment_child.author}}" /> 
+                                    <div class="flex items-center"> 
+                                      <div class="flex "> 
+                                        <img src="/static/images/user-icon.png"  class="w-6 h-6 rounded-full" alt=""> 
+                                        <div> <p class="px-2 italic leading-1 text-[13.5px] ">{% if current_user %}{{current_user  }}{% else %}'user'{% endif %}</p> <p class="px-2 italic  leading-1  text-[13.5px] ">#321</p>
+                                        </div> </div> {{commentChild_temp.comment_content}} </div> 
+                                        <input type="submit" value=" bình luận" class=" cursor-pointer px-3 text-sm py-1.5 rounded-md text-white bg-red-500 hover:bg-red-600 mt-1 float-right"/> 
+                                  </form> 
+                                </div>
+
+                      </div>
+                      {%  endfor %} 
+            </div>
+      {% else %}
+         <h2 class="text-2xl flex items-center justify-center text-gray-500">Chưa có bình luận nào.</h2>
+      
+      {% endif %} 
+      
+        
+      </div>
+      </div>
+  </div>
+<script >
+   
+  
+  var currentUser = "{{ current_user|escapejs }}";
+  var comment_inside =  document.querySelector('.comment_inside')
+  if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+
+    // handle Show Reply form
+    const handleShowReply = (e) => {
+      
+      if(currentUser){
+        const Post_Comment = e.parentNode.parentNode.parentNode.parentNode
+        const reply_form = Post_Comment.querySelector('.reply-form')
+        reply_form.style.display = "block"
+      }
+      else{
+        window.location.href = "/login"
+      }
+    }
+    const handleShowComment = (e,comment_id) => {
+      let commentid = parseInt((comment_id))
+      let reply_form = e.parentNode.parentNode.parentNode.querySelector('.comment_children');
+      let getComment_child = document.querySelector('.getComment_child')
+      let CommentCurrent = getComment_child.querySelectorAll(`.comment_${commentid}`)
+      let CommentInstance = []
+      CommentCurrent.forEach((element)=>{
+          CommentInstance.push(element.cloneNode(true))
+      })
+
+      CommentInstance.forEach((element)=>{
+        reply_form.appendChild(element)
+      })
+      var computedStyle = window.getComputedStyle(reply_form)
+      if (computedStyle.display === 'none' ) {
+        reply_form.style.display = "block"
+      } else {
+          reply_form.innerHTML = ''
+        reply_form.style.display = "none"
+
+      }
+    }
+    // HandleClose Reply form
+    const handleCloseReply =(e)=>{
+      const Post_Comment = e.parentNode.parentNode
+      
+      const reply_form = Post_Comment.querySelector('.reply-form')
+      reply_form.style.display = "none"
+    }
+</script>
 {%endblock%}

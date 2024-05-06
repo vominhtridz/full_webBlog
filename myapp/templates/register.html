@@ -4,18 +4,13 @@
     <div class="container mt-[14rem] mx-auto w-[40rem]" id="container">
         <div class=" w-full  sign-in">
             <form class="loginForm w-full"  method="post">
-                <h1 class="font-bold text-lg">Đăng kí</h1>
-                <div class="social-icons">
-                    <label class="icon px-2"><i class="fa-brands cursor-pointer  fa-google-plus-g"></i></label>
-                    <label class="icon px-2"><i class="fa-brands cursor-pointer  fa-facebook-f"></i></label>
-                    <label class="icon px-2"><i class="fa-brands cursor-pointer  fa-github"></i></label>
-                    <label class="icon px-2"><i class="fa-brands cursor-pointer  fa-linkedin-in"></i></label>
-                </div>
-                <span>Hoặc nhập Email mật khẩu</span>
+                <h1 class="font-bold text-xl py-4">Đăng kí tài khoản</h1>
+                
+                <span class="block py-2">nhập tên người dùng và mật khẩu bằng số điện thoại và 1 chữ cái</span>
                  <div class="w-full">
                    {% csrf_token %}
                 <div class="">
-                    <label for="username" class="text-gray-600 font-bold">Tên đăng nhập:</label>
+                    <label for="username" class="text-gray-600 font-bold">Tên người dùng:</label>
                     {{form.username}}
                 </div>
                 <div class="">
@@ -28,7 +23,7 @@
                 </div>
                  </div>
                 <div class="flex justify-between w-full my-2">
-                    <button class="bg-blue-800 px-4 py-2 rounded-sm text-sm text-white" type="submit">Đăng Kí</button>
+                    <button class="bg-red-600 px-4 py-2 rounded-sm text-sm text-white" type="submit">Đăng Kí</button>
                     <div class="flex items-center">
                         <p class="px-2 pt-0.5 ">Đã có tài khoản? </p>
                         <a href="{% url 'login' %}" class="text-blue-500 underline"><p class="text-blue-500 underline">Đăng Nhập</p></a>
