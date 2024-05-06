@@ -75,9 +75,12 @@ WSGI_APPLICATION = 'web_blog.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
 
-DATABASE_URL='postgres://web_blogdb_puser:NsoTUIo43bDEUjxhlStZbCM6c1WtqB7M@dpg-cos4q2i0si5c739p6r00-a.oregon-postgres.render.com/web_blogdb'
+
 DATABASES = {
-    'default': dj_database_url.config(default=DATABASE_URL)
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    }
 }
 
 # Password validation
