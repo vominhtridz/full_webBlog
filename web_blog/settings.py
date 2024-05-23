@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure--c+(#9!p!awa-&_q^(l1e^6-f+!gev%l*gcblb9330pj^w4v-4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'myapp',
     'django_jsonform',
+    'django_social_share'
 ]
 
 MIDDLEWARE = [
@@ -64,6 +65,9 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'myapp.context_processors.ProfileContext',
+                'myapp.context_processors.NotificationContext',
+                'myapp.context_processors.PostContext',
             ],
         },
     },

@@ -12,14 +12,24 @@
       href="{% static 'images/logo_blog.png' %}"
     />
     <!-- tailwind -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
       <link rel="" href="">
-    <script src="https://cdn.tailwindcss.com"></script>
+      <script src="https://cdn.tailwindcss.com"></script>
+      {% load social_share %}
     {% csrf_token %}
+    <style>
+      #notify_child {
+        display: none;
+      }
+      #notify:hover #notify_child {
+        display: block;
+      }
+    </style>
 </head>
 <body>
   <!-- Alll of topic ready to search -->
-
+  
     <!--logo  -->
     <div class='fixed top-0 right-0 z-10 left-0 px-10 shadow bg-white border-b border-slate-300'>
           <div class="hidden searchItems">
@@ -37,46 +47,81 @@
        <div class="w-[45rem] search_container mx-auto relative z-40">
         <input type="text" id="search-input" class="rounded-sm px-3 search text-sm py-2 border border-slate-300 w-full outline-none" placeholder="Tìm kiếm....">
         <div id="search-dropdown" class="absolute hidden search_item bg-white overflow-hidden flex flex-col shadow-md top-full left-0 right-0 p-2 w-full">
-          <p class="w-full py-1 px-2">tìm kiếm...</p>
+          <p id="search_default" class="w-full py-1 px-2">tìm kiếm...</p>
           
         </div>
       </div>
-
-          <!-- loggin -->
+    <!-- message -->
+    {% if messages %}
+      <div class="fixed top-20 px-4 py-2 rounded-sm bg-white text-sm  left-1/3 shadow-lg z-50" id="message">
+          <div class="message flex items-center {{ message.tags }}">
+            <p class=" bg-blue-500 rounded-full text-white px-2 py-1  mr-2 "><i class="fa-solid fa-check"></i></p>
+            {% for message in messages%}
+            {{ message }} 
+            {%endfor%}
+          </div>  
+      </div>
+      {%endif%}
+        <!-- loggin -->
         {% if  user and  current_user %}
          <div class="flex items-center">
-          <a href="{% url 'addpost' %}" class="text-sm py-4 rounded-sm px-4">tạo blog</a>
-          <a href="/blog/mine" class="text-sm py-4 rounded-sm px-4">blogs của tôi</a>
+          <div  class="text-sm py-4 whitespace-nowrap rounded-sm px-4  relative" id="notify">
+            Thông báo 
+            {% if Notification%}
+            <p  class="absolute top-1.5 r bg-red-600 text-white px-1.5 text-[10px] font-bold rounded-full right-1.5">{{Notification|length}}</p>
+            {% endif %}
+            <div id="notify_child" class="absolute notify-item w-[30rem] right-0 border py-1.5 border-gray-200 z-50 max-h-[35rem]  rounded-sm min-h-56 bg-white shadow-lg text-sm ">
+             
+              {% if Notification %}
+              {% for notifi in Notification %}
+              <a  href="/{{notifi.to}}" class="text-gray-800 max-h-[56px] flex mb-3 p-2 hover:bg-gray-200">
+                <img src="/media/{{notifi.image}}" class="rounded-full w-10 h-10 shadow border border-gray-200" alt="">    
+                <div class="ml-4 w-full text-ellipsis">
+                  <p class=" font-semibold text-gray-600">{{notifi.username}}</p>
+                  <p class="overflow-hidden text-ellipsis max-w-[255px]">
+                  {{notifi.message}}
+                  </p>
+                  
+                </div>
+                <time class="italic ml-auto">{{notifi.created_at}}</time>
+              </a>
+              {% endfor%}
+              {% else %}
+              <p class="px-2 py-1 whitespace-nowrap flex items-center justify-center font-semibold text-base text-gray-600">Chưa có thông báo</p>
+              {% endif%}
+            </div>
+          </div>
+          <a href="{% url 'addpost' %}" class="text-sm py-4 rounded-sm px-4 whitespace-nowrap">tạo blog</a>
+          <a href="/blog/mine" class="text-sm py-4 rounded-sm px-4 whitespace-nowrap">blogs của tôi</a>
          </div>
         {% endif %}
         {% if  not user or not current_user %}
           {% if request.path == '/login/' %}
             <a href="{% url 'register' %}" class="text-sm py-4 rounded-sm px-4">
-              <p class="border-b-2 border-red-300 hover:border-red-300 py-2"> Đăng kí</p>
+              <p class="border-b-2 border-red-300 hover:border-red-300 py-2 whitespace-nowrap"> Đăng kí</p>
             </a>
           
             {% else %}
             <a href="{% url 'register' %}" class="text-sm rounded-sm px-4">
               
-              <p class="border-b-2 border-white hover:border-red-300 py-2"> Đăng kí</p>
+              <p class="border-b-2 border-white hover:border-red-300 py-2 whitespace-nowrap"> Đăng kí</p>
             </a>
           {% endif%}
           {% if request.path == '/register/' %}
             <a href="{% url 'login' %}" class="text-sm py-4 rounded-sm px-4">
-              <p class="border-b-2 border-red-300 hover:border-red-300 py-2"> Đăng nhập</p>
+              <p class="border-b-2 border-red-300 hover:border-red-300 py-2 whitespace-nowrap"> Đăng nhập</p>
             </a>
             {% else %}
             <a href="{% url 'login' %}" class="text-sm rounded-sm px-4">
               
-              <p class="border-b-2 border-white hover:border-red-300 py-2"> Đăng nhập</p>
+              <p class="border-b-2 border-white hover:border-red-300 py-2 whitespace-nowrap"> Đăng nhập</p>
             </a>
           {% endif%}
         {% endif %}
-
-        {% if user %}
-            <a href="/user/profile/{{current_user.id}}" class="px-2 text-sm relative logged_in flex items-center">
-              <img src="/static/images/user-icon.png" class="mr-2 w-6 h-6 rounded-full" alt=""> 
-              {{ user.username }}
+        {% if user and current_user %}
+            <a href="/user/profile/{{user.id}}" class="whitespace-nowrap px-2 text-sm relative logged_in flex items-center">
+              <img src="{{ profile.image.url|default:'/static/images/user-icon.png' }}" class="mr-2 w-6 h-6 rounded-full" alt="">
+              {{ profile.defaultName|default:user.username }}
             </a>
             {% if user.username %}
             <a href="{% url 'logout' %}" class="absolute top-14 right-12 logged_in_item bg-white px-6 py-1.5 shadow whitespace-nowrap">Đăng xuất</a>
@@ -160,38 +205,56 @@
   var searchContainer = document.querySelector('.search_container');
   var searchBar = document.querySelector('.search_item');
   var searchInput = document.getElementById('search-input');
-  document.addEventListener('click', function(event) {
-      var isClickInside = searchContainer.contains(event.target);
-      if (isClickInside) {
+ // ---------------------notify-------
+ document.addEventListener('click', function(event) {
+  const isClickInside = searchContainer.contains(event.target);
+  searchBar.classList.toggle('hidden', !isClickInside);
+});
 
-        searchBar.classList.remove('hidden') 
-      } else {
-            searchBar.classList.add('hidden') 
-      }
-  });
-  searchInput.addEventListener('input',(e)=>{
-    const value = e.target.value
-    const result = handleSearch(value)
-    searchBar.innerHTML = `<a href="/search/${result}" class='px-2 text-sm' >${result}</a>`
+searchInput.addEventListener('keyup', debounce(function(e) {
+  const value = e.target.value.trim().toLowerCase();
+  const result = handleSearch(value);
+  const search_default = document.getElementById('search_default')
+  result.map(item => {
+    let aElement = document.createElement('a');
+    aElement.textContent = item; // Set the text content
+    aElement.href = `/search/${item}`; // Set the href attribute
+    aElement.alt = `say`; // Set the href attribute
+    aElement.classList.add('px-2', 'text-sm','py-2','hover:bg-gray-200');
+    searchBar.append(aElement);
+});
+  
+}, 400));
 
-  })
-function handleSearch(value){
-
-  const items = document.querySelector('.searchItems')
-  const searchValue = value.toLowerCase()
-
-  let getTitleSearch = items.querySelectorAll('.items-search')
-  let titlesSearch = [] 
-  for(let i = 0;i<getTitleSearch.length;i++){
-    titlesSearch.push(getTitleSearch[i].innerHTML.trim())
-  }
-  for(let i = 0 ;i< titlesSearch.length;i++){
-    if(titlesSearch[i].includes(searchValue)){
-      return titlesSearch[i]
-    }
-  }
-  return 'không tìm thấy'
+function handleSearch(value) {
+  const items = document.querySelector('.searchItems');
+  const searchValue = value.toLowerCase();
+  const getTitleSearch = Array.from(items.querySelectorAll('.items-search')).map(item => item.textContent.trim());
+console.log(getTitleSearch.filter(title => title.includes(searchValue)) )
+  return getTitleSearch.filter(title => title.includes(searchValue)) || '';
 }
+
+// Debounce function
+function debounce(func, wait) {
+  let timeout;
+  return function executedFunctions(...args) {
+
+    const later = () => {
+      timeout = null;
+      func(...args);
+    };
+    clearTimeout(timeout);
+    timeout = setTimeout(later, wait);
+  };
+}
+document.addEventListener("DOMContentLoaded", function() {
+        var message = document.getElementById("message");
+        message.style.display = "block"; // Show the message initially
+
+        setTimeout(function() {
+            message.style.display = "none"; // Hide the message after 5 seconds
+        }, 5000);
+    });
  
 </script>
 </html>

@@ -5,10 +5,7 @@
         <div class="w-1/4 bg-white shadow mx-4 rounded-sm p-4 ">
             <h2 class="py-2 text-2xl tracking-wide text-gray-600 flex justify-center font-bold">Hồ sơ</h2>
             <div class="">
-                <button class="w-full py-2 text-left hover:text-red-500">Tổng quan </button>
                 <button class="w-full py-2 text-left hover:text-red-500">Thông tin cá nhân</button>
-                <button class="w-full py-2 text-left hover:text-red-500">Thông báo</button>
-                <button class="w-full py-2 text-left hover:text-red-500">Bảo mật</button>
             </div>
         </div>
         <form  method="POST"   class="form_profile h-full w-full shadow bg-white rounded-sm mx-4 py-4 pl-16 pr-4" enctype="multipart/form-data">
@@ -90,7 +87,7 @@
         day.add(option);
     }
 
-    for (var i = 0; i < months.length; i++) {
+    for (var i = 1; i <= months.length; i++) {
         var option = document.createElement("option");
         option.text = months[i];
         option.value = i

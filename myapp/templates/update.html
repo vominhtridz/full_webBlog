@@ -11,21 +11,25 @@
     <form method="post" class="p-6 mx-20 my-4 bg-white rounded-sm" enctype="multipart/form-data">
         {% csrf_token %}
         <div class="py-1">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">chủ đề </label>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_title">chủ đề </label>
             {{form.title}}
         </div>
          <div class="py-1">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Phân loại </label>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_topic">Phân loại </label>
             {{form.topic}}
         </div>
 
          <div class="py-1">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Nội dung </label>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_content">Nội dung </label>
             {{form.content}}
         </div>
          <div class="py-1">
-            <label class="block text-gray-700 text-sm font-bold mb-2" for="title">Hình ảnh</label>
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_image">Hình ảnh</label>
             {{form.image}}
+        </div>
+        <div class="py-2">
+            <label class="block text-gray-700 text-sm font-bold mb-2" for="id_citation_url">Trích từ nguồn </label>
+            {{form.citation_url}}
         </div>
         <button type="submit " class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" >Save</button>
     </form>

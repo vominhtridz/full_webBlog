@@ -10,20 +10,20 @@
                  <div class="w-full">
                    {% csrf_token %}
                 <div class="">
-                    <label for="username" class="text-gray-600 font-bold">Tên người dùng:</label>
+                    <label for="id_username" class="text-gray-600 font-bold">Tên người dùng:</label>
                     {{form.username}}
                 </div>
                 <div class="">
-                    <label for="username" class="text-gray-600 font-bold">Mật khẩu:</label>
-                    {{form.password1}}
+                    <label for="id_password1" class="text-gray-600 font-bold">Mật khẩu:</label>
+                    <input type="password" name="password1" class="formInput" placeholder="Nhập mật khẩu...." autocomplete="new-password" required="" aria-describedby="id_password1_helptext" id="id_password1" fdprocessedid="qexvon">
                 </div>
                 <div class="">
-                    <label for="username" class="text-gray-600 font-bold">Nhập lại mật khẩu:</label>
-                    {{form.password2}}
+                    <label for="id_password2" class="text-gray-600 font-bold">Nhập lại mật khẩu:</label>
+                    <input type="password" name="password2" class="formInput" autocomplete="new-password" placeholder="Nhập lại mật khẩu...." required="" aria-describedby="id_password1_helptext" id="id_password2" fdprocessedid="qexvon">
                 </div>
                  </div>
                 <div class="flex justify-between w-full my-2">
-                    <button class="bg-red-600 px-4 py-2 rounded-sm text-sm text-white" type="submit">Đăng Kí</button>
+                    <button class="bg-red-600 px-4 py-2 rounded-sm text-sm text-white"  type="submit">Đăng Kí</button>
                     <div class="flex items-center">
                         <p class="px-2 pt-0.5 ">Đã có tài khoản? </p>
                         <a href="{% url 'login' %}" class="text-blue-500 underline"><p class="text-blue-500 underline">Đăng Nhập</p></a>

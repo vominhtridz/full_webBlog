@@ -1,4 +1,5 @@
 {% extends "base.html" %} {% block title %}Topic {% endblock %}
+
 {% block content %}
    <div class="pt-10 w-full  mt-[5rem] h-full ">
      <div class="flex justify-between px-16 h-full">
@@ -14,11 +15,35 @@
             {% endif %}
            <h2 class="text-6xl uppercase text-gray-600 font-bold flex justify-center pb-16 pt-6">{{ post.title }}</h2>
             <img src="{{ post.image.url }}" class="w-[85%] mx-auto h-[40rem] " alt="">
+            
             <div class="px-10  py-1  h-full py-10">
               <p class="">- {{ post.content }}</p>
+              {% if post.citation_url %}
+              <p class="text-black text-sm pt-6 flex items-center">Trích dẫn từ nguồn:  
+                <a href="{{post.citation_url}}" class=" hover:underline px-1 text-blue-600 ">{{post.citation_url}}
+                </a>
+              </p>
+              {%endif%}
                <div class="flex items-center justify-between pt-10 leading-4">
                   <p class="italic  text-[13.5px] flex items-end justify-end ">Tác giả: {{post.author}}</p>
                     <time class="italic  text-[13.5px] flex items-end justify-end ">{{post.created_at}}</time>
+              </div>
+              <div class="flex justify-between">
+                <div class="flex items-cetner mt-4">Chia sẽ
+                  {% load custom_tags %}
+             
+                <a target="_blank" href="{% facebook_share_url 'http://127.0.0.1:8000/topic/8/' %}" class="text-blue-600 text-2xl px-1.5">
+                  <i class="fa-brands fa-facebook"></i></a>
+              <a target="_blank" href="{% twitter_share_url 'http://127.0.0.1:8000/topic/8/' %}" class="text-blue-600 text-2xl px-1.5">
+                  <i class="fa-brands fa-twitch"></i></a>
+              <a target="_blank" href="{% linkedin_share_url 'http://127.0.0.1:8000/topic/8/' %}" class="text-blue-600 text-2xl px-1.5">
+                  <i class="fa-brands fa-linkedin"></i></a>
+              </div>
+              
+              <a href="{% url 'addpost' post.id %}" class="flex items-center">
+                <p class="px-2 text-xl"><i class="fa-solid fa-quote-right"></i></p>
+                Trích nguồn
+              </a>
               </div>
             </div>
           </div>
@@ -33,9 +58,14 @@
             {% csrf_token %}
             <div class="flex items-center">
               <div class="flex ">
-                <img src="/static/images/user-icon.png" class="w-8 h-8 rounded-full" alt="">
+                 <img src="{{ profile.image.url|default:'/static/images/user-icon.png' }}" class=" w-10 h-10 rounded-full" alt="">
                  <div>
-                   <p class="px-2 italic leading-1 text-[13.5px] ">{% if current_user %}{{current_user  }}{% else %}'user'{% endif %}
+                  
+                   <p class="px-2  italic leading-1 text-[13.5px] whitespace-nowrap mt-2">
+                    {% if current_user.id == profile.id %}
+                    {{profile.defaultName  }}
+                    {% else %}{{current_user.username}}
+                    {% endif %}
                      
                   </p>
                  
@@ -53,14 +83,24 @@
            {% if comment.topic_id == post.id  %}
                <div class=" my-2 Post_Comment">
                     <div  class="flex ">
-                      <a href="#"><img src="/static/images/user-icon.png" class="w-8 h-8 rounded-full" alt=""></a>
-
+                      <a href="#">
+                        {% if comment.user_id == profile.id%}
+                        <img src="{{profile.image.url}}" class="mr-2 w-8 h-8 shadow-lg border border-gray-200 rounded-full" alt="">
+                        {%else%}
+                        <img src="{{comment.image.url}}" class="mr-2 w-8 h-8 shadow-lg border border-gray-200 rounded-full" alt="">
+                        {%endif%}
+                    </a>
                       <div class="flex items-baseline">
-                        <p  class="px-3 italic  leading-1 comment_author  text-[18px] " >{{comment.author}}</p>
-                          <time class="italic  whitespace-norwrap  text-[13.5px] flex items-end justify-end ">{{post.created_at}}</time>
-                          </div>
+                        {% if comment.user_id == profile.id%}
+                        <p  class=" font-semibold italic text-gray-800  leading-1 comment_author  text-[16px] " >{{profile.defaultName}}</p>
+                        {%else%}
+                        <p  class=" font-semibold italic text-gray-800  leading-1 comment_author  text-[16px] " >{{comment.username}}</p>
+                        {%endif%}
+                  
+                        <time class="italic  whitespace-norwrap  text-gray-800  text-[13.5px] flex items-end justify-end ml-2 ">{{post.created_at}}</time>
+                      </div>
                     </div>
-                    <p class="text-base pl-11 leading-4">{{comment.comment_content}}</p>
+                    <p class="text-base pl-11 leading-4  text-gray-800 text-wrap overflow-hidden">{{comment.comment_content}}</p>
                     <div class="flex justify-between   pl-8">
                       <div class="">
                         <div  class="flex items-center">
@@ -94,9 +134,14 @@
 
                           <div class="flex items-center">
                             <div class="flex ">
-                              <img src="/static/images/user-icon.png"  class="w-6 h-6 rounded-full" alt="">
+                              {% if comment.user_id == profile.id %}
+                              <img src="{{ profile.image.url|default:'/static/images/user-icon.png' }}" class="mr-2 w-6 h-6 shadow-lg border border-gray-200 rounded-full" alt="">
+                              {% else %}
+                              <img src="/static/images/user-icon.png" class="w-8 h-8 rounded-full" alt="">
+                              {% endif %}
                               <div>
-                                <p class="px-2 italic leading-1 text-[13.5px] ">{% if current_user %}{{current_user  }}{% else %}'user'{% endif %}</p>
+                                <p class="px-2 whitespace-nowrap italic leading-1 text-[13.5px] whitespace-nowrap">
+                                  {% if current_user.id == profile.id %}{{profile.defaultName  }}{% else %}{{current_user.username}}{% endif %}</p>
                                 <p class="px-2 italic  leading-1  text-[13.5px] ">#321</p>
                               </div>
                             </div>
@@ -119,10 +164,29 @@
               {% for comment_child in Post_CommentChild %} 
                     
                       <div class="comment_{{comment_child.commentChild_id}}">
-                      <div  class="flex "> <a href="#"><img src="/static/images/user-icon.png" class="w-6 h-6 rounded-full" alt=""></a> 
+                      <div  class="flex "> 
+                        <a href="#">
+                        {% if comment_child.user_id == profile.id  %}
+                        <img src="{{ profile.image.url}}" class="mr-2 w-6 h-6 shadow-lg border border-gray-200 rounded-full" alt="">
+                        {% else %}
+                        <img src="{{comment_child.image.url }}" class="mr-2 w-6 h-6 shadow-lg border border-gray-200 rounded-full" alt="">
+                        {% endif%}
+                        </a> 
                         <div class="flex items-baseline"> 
-                          <p  class="px-3 italic  leading-1  comment_author  text-[12px] font-semibold " >{{comment_child.author}}</p> <time class="italic  whitespace-norwrap font-normal  text-[13.5px] flex items-end justify-end ">{{post.created_at}}</time> </div> </div>
-                          <p class="text-base pl-11 my-0 py-0">{% if comment_child.tag != ''%}@{{ comment_child.tag }} {% endif %} {{comment_child.comment_content}}</p>
+                          
+                          <p  class="px-3 italic  leading-1  comment_author  text-[12px] font-semibold " >
+                            {% if comment_child.user_id == profile.id  %}
+                            {{profile.defaultName}}
+                            {%else%}
+                            {{comment_child.username}}
+                            {%endif%}
+                          </p> 
+                            <time class="italic  whitespace-norwrap font-normal  text-[13.5px] flex items-end justify-end ">{{post.created_at}}</time> </div> </div>
+                          <p class="text-base pl-11 text-wrap overflow-hidden flex flex-wrap my-0 py-0">
+                            {% if comment_child.tag != ''%}@
+                            {{ comment_child.tag }}
+                            {% endif %}
+                              {{comment_child.comment_content}}</p>
                             <div class="flex justify-between  py-2 pl-8"> 
                               <div  class="flex items-center"> 
                               <div   class="px-2 text-sm w-10 flex items-center"> 
@@ -137,13 +201,18 @@
                                 <!-- -----------------------repty form------------------ --> 
                                 <div class="reply-form pt-0.5 hidden border-t border-gray-300 "> 
                                   <button   class="outline-none hiddenBtn_cmt text-xl text-gray-600 font-bold flex justify-end ml-auto pr-4 " onclick="handleCloseReply(this)">X</button> 
-                                  <form method="POST" autocomplete="off" enctype="multipart/form-data"  action="{% url 'comment_tag' post.id comment_child.commentChild_id comment_child.author %}" class=" pb-8 pl-10 "> 
+                                  <form method="POST" autocomplete="off" enctype="multipart/form-data"  action="{% url 'comment_tag' post.id comment_child.commentChild_id comment_child.user_id comment_child.username %}" class=" pb-8 pl-10 "> 
                                     {% csrf_token %} 
-                                    <input type="hidden" class="px-3 italic  leading-1 comment_author  text-[15px] " name='comment_author' value="{{comment_child.author}}" /> 
+                                    <input type="hidden" class="px-3 italic  leading-1 comment_author  text-[15px] " name='comment_author' value="{{comment_child.username}}" /> 
                                     <div class="flex items-center"> 
                                       <div class="flex "> 
-                                        <img src="/static/images/user-icon.png"  class="w-6 h-6 rounded-full" alt=""> 
-                                        <div> <p class="px-2 italic leading-1 text-[13.5px] ">{% if current_user %}{{current_user  }}{% else %}'user'{% endif %}</p> <p class="px-2 italic  leading-1  text-[13.5px] ">#321</p>
+                                        <img src="{{ profile.image.url|default:'/static/images/user-icon.png' }}" class="mr-2 w-6 h-6 shadow-lg border border-gray-200 rounded-full" alt="">
+                                        <div> <p class="px-2 whitespace-nowrap italic leading-1 text-[13.5px] ">
+                                          {% if current_user.id == profile.id %}
+                                          {{profile.defaultName  }}
+                                          {% else %}
+                                          {{current_user.username}}
+                                          {% endif %}</p> <p class="px-2 italic  leading-1  text-[13.5px] ">#321</p>
                                         </div> </div> {{commentChild_temp.comment_content}} </div> 
                                         <input type="submit" value=" bình luận" class=" cursor-pointer px-3 text-sm py-1.5 rounded-md text-white bg-red-500 hover:bg-red-600 mt-1 float-right"/> 
                                   </form> 

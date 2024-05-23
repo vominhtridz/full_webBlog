@@ -25,7 +25,6 @@ class UserProfileForm(forms.ModelForm):
 
 # --------------------  SIGN UP FORM -------------------   
 class SignupForm(UserCreationForm):
-    
     class Meta:
         model = User 
         fields = ['username', 'password1', 'password2']  # Specify the fields from User model
@@ -54,13 +53,13 @@ class LoginForm(forms.Form):
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title','topic', 'content', 'image']
+        fields = ['title','topic', 'content', 'image','citation_url']
         widgets = {
         'title': forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Nhập tiêu đề ...'}),
         'topic': forms.Select(attrs={'class': 'border border-slate-500 px-2 py-1'}),
         'content': forms.Textarea(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline', 'placeholder': 'Nhập nội dung ...'}),
         'image': forms.FileInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline'}),
-        
+        'citation_url': forms.TextInput(attrs={'class': 'shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline' , 'placeholder': 'Nhập URL ...', 'required': 'False'}),
         }
         
         
