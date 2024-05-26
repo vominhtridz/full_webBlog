@@ -104,14 +104,19 @@
                     <div class="flex justify-between   pl-8">
                       <div class="">
                         <div  class="flex items-center">
-                              <div   class="like px-2 text-sm w-10 flex items-center">
-                                <p class="pr-2 pt-1">1</p>
-                                <button type="submit"  class="like-btn" data-post-id="{{ post.id }}" data-comment-id="{{ comment.id }}">
-                                  <div class="w-[1.5rem] pl-1">
-                                    <img src="/static/images/like.png" alt="" class="w-full block text-base">
-                                  </div>
-                                </button>
-                              </div>
+                              <form action="/favorite/{{comment.id}}/{{post.id}}/" method="post"   class="like  pl-3 pr-4 text-sm w-10 flex items-center">
+                                {% csrf_token %}
+                                <p class="pr-1 pt-1">{{ comment.like|default:"0" }}</p>
+                                  <button class="" name="Like"><i class="fa-solid  fa-thumbs-up cursor-pointer  text-xl text-gray-500 active:text-blue-600"></i></button>
+                              </form>
+                              <form action="/favorite/{{comment.id}}/{{post.id}}/" method="post"   class="like  pl-4 pr-4 text-sm w-10 flex items-center">
+                          {% csrf_token %}
+
+                                <p class="pr-1 pt-1">{{ comment.like|default:"0" }}</p>
+                                 <button class="" name="Dislike">
+                                   <i class="fa-solid  fa-thumbs-down cursor-pointer pt-1.5 text-xl text-gray-500 active:text-blue-600"></i>
+                                 </button>
+                              </form>
                               <label for="CMT_child" class="ml-8 pt-1.5 hover:text-red-600 text-[14px]  reply-btn cursor-pointer"  onclick="handleShowReply(this)">phản hồi</label>
                         </div>
                           {% if comment.reply_count > 0 %}
@@ -189,14 +194,23 @@
                               {{comment_child.comment_content}}</p>
                             <div class="flex justify-between  py-2 pl-8"> 
                               <div  class="flex items-center"> 
-                              <div   class="px-2 text-sm w-10 flex items-center"> 
-                                <p class="pr-2 pt-1">1</p> <button type="submit" class="likeChild-btn" >
-                                  <div class="w-[1.5rem] pl-1"> 
-                                    <img src="/static/images/like.png" alt="" class="w-full block text-base">
-                                  </div>
-                                  </button> 
+                              <div   class="px-2 text-sm flex items-center"> 
+                                    <form action="/favorite_child/{{comment_child.user_id}}/{{post.id}}/" method="post"    class="like   pr-4 text-sm flex items-center w-full">
+                                        {% csrf_token %}
+                                      
+                                      <p class="pr-1 pt-1">1</p>
+                                        <button type="submit" name="Like"><i class="fa-solid  fa-thumbs-up cursor-pointer  text-xl text-gray-500 active:text-blue-600"></i></button>
+                                    </form>
+                                    <form action="/favorite_child/{{comment_child.user_id}}/{{post.id}}/" method="post"   class="like    text-sm flex items-center">
+                                        {% csrf_token %}
+                                      
+                                      <p class="pr-1 pt-1">1</p>
+                                        <button type="submit" name="Dislike">
+                                          <i class="fa-solid  fa-thumbs-down cursor-pointer pt-1.5 text-xl text-gray-500 active:text-blue-600"></i>
+                                        </button>
+                                </form>
                                   </div> 
-                                  <label class="cursor-pointer ml-8 pt-1.5 hover:text-red-600 text-[14px]  reply-btn" form="CMT_child" onclick="handleShowReply(this)">phản hồi</label> </div> <time class="italic  text-[13.5px] flex items-end justify-end ">{{comment_child.created_at}}</time> 
+                                  <label class="block cursor-pointer ml-4 pt-1.5 hover:text-red-600 text-[14px]  reply-btn" form="CMT_child" onclick="handleShowReply(this)">phản hồi</label> </div> <time class="italic  text-[13.5px] flex items-end justify-end ">{{comment_child.created_at}}</time> 
                                 </div>
                                 <!-- -----------------------repty form------------------ --> 
                                 <div class="reply-form pt-0.5 hidden border-t border-gray-300 "> 
@@ -238,7 +252,7 @@
   if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
     }
-
+  
     // handle Show Reply form
     const handleShowReply = (e) => {
       

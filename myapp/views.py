@@ -213,6 +213,29 @@ def user_logout(request):
     logout(request)
     return redirect('home')
 # topic
+
+def handle_like (request,user_id,post_id ):
+    CMT = Comment.objects.get(id = user_id)
+    if 'Like' in request.POST:
+        CMT.like +=1
+        redirect('topic', post_id)  
+    elif "Dislike" in request.POST:
+        CMT.like += 1
+    
+    CMT.save()
+    return redirect('topic', post_id)
+        
+
+def handleLike_child (request, user_id,post_id):
+    CMTChild = CommentChild.objects.get(user_id = user_id)
+    if 'Like' in request.POST:
+        CMTChild.like +=1
+        return redirect('topic', post_id)
+    elif "Dislike" in request.POST:
+        CMTChild.like += 1
+    CMTChild.save()    
+    return redirect('topic', post_id)
+        
 def Topic(request,post_id):
     current_user = request.user if request.user.is_authenticated else None
     post = Post.objects.get(id=post_id)
@@ -240,6 +263,7 @@ def Handle_Comment(request, post_id):
     current_user = request.user if request.user.is_authenticated else None
     if not request.user.is_authenticated:
         return redirect('login')
+   
     # Lấy bài viết theo id  
     LengthCMTChild = len(Comment.objects.filter(topic_id=post_id))
     profile = get_object_or_404(UserProfile,id=current_user.id)
@@ -252,6 +276,7 @@ def Handle_Comment(request, post_id):
             comment_DB.Commentid = LengthCMTChild
             comment_DB.comment_content = comment_temp.cleaned_data['comment_content']
             comment_DB.author = current_user
+            
             if profile.image:
                 comment_DB.image = profile.image
                 comment_DB.username = profile.defaultName
@@ -287,6 +312,7 @@ def Handle_CommentChild(request, post_id,comment_id):
             CommentChild_DB.comment_content = comment_template.cleaned_data['comment_content']
             CommentChild_DB.author = current_user
             CommentChild_DB.commentChild_id = comment_id
+            
             if profile.image:
                 CommentChild_DB.image = profile.image
                 CommentChild_DB.username = profile.defaultName
@@ -311,8 +337,10 @@ def Handle_CommentTag(request, post_id,comment_id,user_id,comment_tag):
     if not request.user.is_authenticated:
         return redirect('login')
     current_user = request.user if request.user.is_authenticated else None
-    print(comment_id, current_user.id)
+    # CMT = CommentChild.objects.get()
+    
     # Lấy bài viết theo id  
+    
     profile = get_object_or_404(UserProfile, id = current_user.id)
     comment = Comment.objects.get(id = comment_id)
     comment.reply_count +=1
@@ -324,12 +352,15 @@ def Handle_CommentTag(request, post_id,comment_id,user_id,comment_tag):
             CommentChild_DB = comment_template.save(commit=False)
             CommentChild_DB.topic_id = post_id
             CommentChild_DB.user_id = current_user.id
+            # Check to set user tag 
             if current_user.id == user_id:
                 CommentChild_DB.tag = ''
             else:
                 CommentChild_DB.tag = comment_tag
             CommentChild_DB.comment_content = comment_template.cleaned_data['comment_content']
             CommentChild_DB.author = current_user
+            # handle Like
+            
             if profile.image:
                 CommentChild_DB.image = profile.image
                 CommentChild_DB.username = profile.defaultName
@@ -348,20 +379,5 @@ def Handle_CommentTag(request, post_id,comment_id,user_id,comment_tag):
             CommentChild_DB.save()  
     return redirect('topic', post_id)
     
-def handleLike (request,post_id, comment_id):
-    if not request.user.is_authenticated:
-        return redirect('login')
-    if(request.method == 'POST'):
-        comment = get_object_or_404(Comment, id=comment_id)
-        comment.like += 1
-        return JsonResponse({'success': True})
-    else:
-        comment = get_object_or_404(Comment, id=comment_id)
-        comment.like -= 1
-        return JsonResponse({'success': False, 'error': 'Invalid request method'})
-       
-def handleLikeChild (request,post_id, comment_id):
-    
 
-    return redirect('topic', post_id)
        

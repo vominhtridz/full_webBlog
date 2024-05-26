@@ -211,7 +211,14 @@
   searchBar.classList.toggle('hidden', !isClickInside);
 });
 
-searchInput.addEventListener('keyup', debounce(function(e) {
+searchInput.addEventListener('input', debounce(function(e) {
+   searchBar.innerHTML = '';
+searchBar.innerHTML = `<p id="search_default" class="w-full py-1 px-2">tìm kiếm...</p>`
+  if (searchInput.value == ''){
+    searchBar.innerHTML = '';
+searchBar.innerHTML = `<p id="search_default" class="w-full py-1 px-2">tìm kiếm...</p>`
+return
+  }
   const value = e.target.value.trim().toLowerCase();
   const result = handleSearch(value);
   const search_default = document.getElementById('search_default')
@@ -219,18 +226,17 @@ searchInput.addEventListener('keyup', debounce(function(e) {
     let aElement = document.createElement('a');
     aElement.textContent = item; // Set the text content
     aElement.href = `/search/${item}`; // Set the href attribute
-    aElement.alt = `say`; // Set the href attribute
     aElement.classList.add('px-2', 'text-sm','py-2','hover:bg-gray-200');
     searchBar.append(aElement);
 });
   
-}, 400));
+}, 300));
 
 function handleSearch(value) {
   const items = document.querySelector('.searchItems');
   const searchValue = value.toLowerCase();
   const getTitleSearch = Array.from(items.querySelectorAll('.items-search')).map(item => item.textContent.trim());
-console.log(getTitleSearch.filter(title => title.includes(searchValue)) )
+
   return getTitleSearch.filter(title => title.includes(searchValue)) || '';
 }
 

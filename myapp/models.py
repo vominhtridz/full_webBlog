@@ -51,6 +51,7 @@ class Comment(models.Model):
     created_at = models.DateTimeField(default=timezone.now)
     reply_count = models.IntegerField(default= 0,blank= True)
     like = models.IntegerField(default = 0)
+    dislike = models.IntegerField(default = 0)
     username= models.CharField(default= 'user',blank=True,max_length=50)
     image = models.ImageField(upload_to='comment/images',default='static/images/user-icon.png')
 
@@ -67,6 +68,7 @@ class CommentChild(models.Model):
     comment_content = models.TextField(default='')
     created_at = models.DateTimeField(default=timezone.now)
     like = models.IntegerField(default = 0)
+    dislike = models.IntegerField(default = 0)
     
     
 # -------------------------------------  POST  ---------------------------------   
